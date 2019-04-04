@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <title>E-KYC Search</title>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $.getJSON(
+          "https://api.sheety.co/36e03e21-86e6-43f4-87ed-6f02f01be7e1",
+          function(data) {
+            console.log(data);
+            var template = Handlebars.compile($("#item-template").html());
+            $("#items").html(template(data));
+          }
+        );
+      });
+
+      Handlebars.registerHelper("colorLevel", function(number) {
+        switch (Math.abs(number)) {
+          case 0: {
+            return "#FFFFFF";
+            break;
+          }
+          case 0.3: {
+            return "#ACE1AF";
+            break;
+          }
+          case 0.5: {
+            return "#B2EC5D";
+            break;
+          }
+          case 0.7: {
+            return "#03C03C";
+            break;
+          }
+          case 0.8: {
+            return "#138808";
+            break;
+          }
+          case 1: {
+            return "#008000";
+            break;
+          }
+          default: {
+            return "#000000";
+            break;
+          }
+        }
+      });
+
+      Handlebars.registerHelper("coverageFriendlyName", function(number) {
+        switch (number) {
+          case 0: {
+            return "No Coverage";
+            break;
+          }
+          case 0.3: {
+            return "Very Weak";
+            break;
+          }
+          case 0.5: {
+            return "Weak";
+            break;
+          }
+          case 0.7: {
+            return "Moderate";
+            break;
+          }
+          case 0.8: {
+            return "Strong";
+            break;
+          }
+          case 1: {
+            return "Very Strong";
+            break;
+          }
+          default: {
+            return "Requires Direct Agreement";
+            break;
+          }
+        }
+      });
+
+      function searchCountry() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+    </script>
+    <script id="item-template" type="text/x-handlebars-template">
+      <h3 class="ui center aligned header" style="padding-top:20px">E-KYC Coverage
+        <input
+        type="text"
+        id="myInput"
+        onkeyup="searchCountry()"
+        placeholder="Search.."
+        title="Type in a name"
+      /></h3>
+            <div class="ui container">
+              <div class="ui segments">
+
+
+                  <table class="ui celled table" id="myTable">
+                    <thead>
+                      <tr><th>Country    </th>
+                          <th>Flag</th>
+                          <th>Onfido</th>
+                          <th>GBGroup</th>
+                          <th>Experian</th>
+                          <th>Equifax Canada</th>
+                    </tr></thead>
+                    <tbody>
+
+
+                            {{#each this}}
+                            {{#if this.data}}
+                            <tr>
+                            <td data-label="Country">{{this.country}}
+
+
+
+                            </td>
+                            <td data-label="Flag"><i class="{{this.iso}} flag"></i></td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.onfido-Coverage}}}" data-tooltip="Price {{{this.onfido-Cost}}}">{{coverageFriendlyName this.onfido-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.gbgroup-Coverage}}}" data-tooltip="Price {{{this.gbgroup-Cost}}}">{{coverageFriendlyName this.gbgroup-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.experian-Coverage}}}" data-tooltip="Price {{{this.experian-Cost}}}">{{coverageFriendlyName this.experian-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.equifax-Coverage}}}" data-tooltip="Price {{{this.equifax-Cost}}}">{{coverageFriendlyName this.equifax-Coverage}}</td>
+                          </tr>
+                          {{/if}}
+                        {{/each}}
+
+
+
+
+                    </tbody>
+                  </table>
+
+
+
+              </div>
+            </div>
+    </script>
+  </head>
+  <body>
+    <div id="items">Loading Data...</div>
+  </body>
+</html>
