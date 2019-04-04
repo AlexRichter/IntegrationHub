@@ -14,7 +14,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         $.getJSON(
-          "https://api.sheety.co/36e03e21-86e6-43f4-87ed-6f02f01be7e1",
+          "https://api.sheety.co/3eb508d3-8471-4c88-be14-eed347c5503f",
           function(data) {
             console.log(data);
             var template = Handlebars.compile($("#item-template").html());
@@ -125,10 +125,10 @@
                     <thead>
                       <tr><th>Country    </th>
                           <th>Flag</th>
-                          <th>Onfido</th>
-                          <th>GBGroup</th>
-                          <th>Experian</th>
-                          <th>Equifax Canada</th>
+                          <th>BVD</th>
+                          <th>DueDil</th>
+                          <th>BREX</th>
+                          <th>Companies House</th>
                     </tr></thead>
                     <tbody>
 
@@ -142,10 +142,10 @@
 
                             </td>
                             <td data-label="Flag"><i class="{{this.iso}} flag"></i></td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.onfido-Coverage}}}" data-tooltip="Price {{{this.onfido-Cost}}}">{{coverageFriendlyName this.onfido-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.gbgroup-Coverage}}}" data-tooltip="Price {{{this.gbgroup-Cost}}}">{{coverageFriendlyName this.gbgroup-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.experian-Coverage}}}" data-tooltip="Price {{{this.experian-Cost}}}">{{coverageFriendlyName this.experian-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.equifax-Coverage}}}" data-tooltip="Price {{{this.equifax-Cost}}}">{{coverageFriendlyName this.equifax-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.bvd-Coverage}}}" data-tooltip="Price {{{this.bvd-Cost}}}">{{coverageFriendlyName this.bvd-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.duedil-Coverage}}}" data-tooltip="Price {{{this.duedil-Cost}}}">{{coverageFriendlyName this.duedil-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.kompany-Coverage}}}" data-tooltip="Price {{{this.kompany-Cost}}}">{{coverageFriendlyName this.kompany-Coverage}}</td>
+                            <td data-label="Country" style="background-color:{{{colorLevel this.companieshouse-Coverage}}}" data-tooltip="Price {{{this.companieshouse-Cost}}}">{{coverageFriendlyName this.companieshouse-Coverage}}</td>
                           </tr>
                           {{/if}}
                         {{/each}}
