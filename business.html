@@ -23,71 +23,19 @@
         );
       });
 
-      Handlebars.registerHelper("colorLevel", function(number) {
-        switch (Math.abs(number)) {
-          case 0: {
-            return "#FFFFFF";
-            break;
-          }
-          case 0.3: {
-            return "#ACE1AF";
-            break;
-          }
-          case 0.5: {
-            return "#B2EC5D";
-            break;
-          }
-          case 0.7: {
-            return "#03C03C";
-            break;
-          }
-          case 0.8: {
-            return "#138808";
-            break;
-          }
-          case 1: {
-            return "#008000";
+      Handlebars.registerHelper("cost", function(number) {
+        switch (number) {
+          case -1: {
+            return "Requires Direct Agreement";
             break;
           }
           default: {
-            return "#000000";
+            return number;
             break;
           }
         }
       });
 
-      Handlebars.registerHelper("coverageFriendlyName", function(number) {
-        switch (number) {
-          case 0: {
-            return "No Coverage";
-            break;
-          }
-          case 0.3: {
-            return "Very Weak";
-            break;
-          }
-          case 0.5: {
-            return "Weak";
-            break;
-          }
-          case 0.7: {
-            return "Moderate";
-            break;
-          }
-          case 0.8: {
-            return "Strong";
-            break;
-          }
-          case 1: {
-            return "Very Strong";
-            break;
-          }
-          default: {
-            return "Requires Direct Agreement";
-            break;
-          }
-        }
-      });
 
       function searchCountry() {
         var input, filter, table, tr, td, i, txtValue;
@@ -119,8 +67,6 @@
       /></h3>
             <div class="ui container">
               <div class="ui segments">
-
-
                   <table class="ui celled table" id="myTable">
                     <thead>
                       <tr><th>Country    </th>
@@ -131,33 +77,21 @@
                           <th>Companies House</th>
                     </tr></thead>
                     <tbody>
-
-
                             {{#each this}}
                             {{#if this.data}}
                             <tr>
                             <td data-label="Country">{{this.country}}
-
-
-
                             </td>
                             <td data-label="Flag"><i class="{{this.iso}} flag"></i></td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.bvd-Coverage}}}" data-tooltip="Price {{{this.bvd-Cost}}}">{{coverageFriendlyName this.bvd-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.duedil-Coverage}}}" data-tooltip="Price {{{this.duedil-Cost}}}">{{coverageFriendlyName this.duedil-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.kompany-Coverage}}}" data-tooltip="Price {{{this.kompany-Cost}}}">{{coverageFriendlyName this.kompany-Coverage}}</td>
-                            <td data-label="Country" style="background-color:{{{colorLevel this.companieshouse-Coverage}}}" data-tooltip="Price {{{this.companieshouse-Cost}}}">{{coverageFriendlyName this.companieshouse-Coverage}}</td>
+                            <td data-label="Country" data-tooltip="{{{cost this.bvd-Cost}}}">{{{this.bvd-Info}}}</td>
+                            <td data-label="Country" data-tooltip="{{{cost this.duedil-Cost}}}">{{this.duedil-Info}}</td>
+                            <td data-label="Country" data-tooltip="{{{cost this.kompany-Cost}}}">{{this.kompany-Info}}</td>
+                            <td data-label="Country" data-tooltip="{{{cost this.companieshouse-Cost}}}">{{this.companieshouse-Info}}</td>
                           </tr>
                           {{/if}}
                         {{/each}}
-
-
-
-
                     </tbody>
                   </table>
-
-
-
               </div>
             </div>
     </script>
