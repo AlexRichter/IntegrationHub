@@ -18,7 +18,7 @@
           function(data) {
             console.log(data);
             var template = Handlebars.compile($("#item-template").html());
-            $("#items").html(template(data));
+            $("#items").html(template(data.eKycs));
           }
         );
       });
