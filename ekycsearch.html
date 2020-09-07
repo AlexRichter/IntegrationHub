@@ -16,7 +16,7 @@
         $.getJSON(
           "https://api.sheety.co/16e7ff026d6cdd54525e58cb1ecb1721/eKyc/eKyc",
           function(data) {
-            console.log(data);
+            console.log(data.eKycs);
             var template = Handlebars.compile($("#item-template").html());
             $("#items").html(template(data.eKycs));
           }
